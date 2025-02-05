@@ -1,0 +1,228 @@
+/* obecné */
+
+a {
+    text-decoration: none;
+}
+
+/* header */
+
+.header {
+    position: fixed;
+    width: calc(100% - 26%);
+    padding: 25px 13% 20px 13%;
+    left: 0px;
+    top: 0px;
+    background-image: linear-gradient(var(--background), var(--background), transparent);
+    z-index: 1000;
+    pointer-events: none;
+
+    .dropdown {
+        transform: translate(0px,-18px);
+    }
+
+    .dropdown * {
+        z-index: 10002;
+    }
+    
+    .navimage img {
+        width: 52px;
+        height: 52px;
+        border-radius: 25%;
+    }
+    
+    .dropdown-content {
+        position: absolute;
+        transform: translate(-50px,0px);
+        background-color: var(--dropdown);
+        padding: 13px 0px 13px 0px !important;
+        display: none;
+        width: max-content;
+        box-shadow: 0 0 8px var(--boxblur);
+    }
+    
+    .dropdown a {
+        margin: 0 5px 0 5px!important;
+        padding: 13px 40px 13px 20px !important;
+    }
+    
+    .dropdown a:hover {
+        font-weight: bold;
+    }
+    
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    
+    a:hover {
+        font-weight: bold;
+    }
+    
+    .a {
+        pointer-events: auto; 
+    }
+    
+    .squiggle {
+        color: var(--accent1);
+        fill: transparent;
+        stroke: currentColor;
+        display: inline-block;
+        transform: translate(0, 27px);
+        width: 170px;
+        height: 7px;
+    }
+    
+    .header-right {
+        pointer-events: auto; 
+        display: flex;
+        justify-content: space-between;
+        float: right;
+    }
+    
+    .header-right a {
+        margin-left: 5px;
+        display: block;
+        padding: 13px 35px 13px 35px;
+    }
+    
+    .logo {
+        font-size: 36px;
+        font-weight: bold;
+        position: absolute;
+        pointer-events: auto; 
+        padding: 0px 35px 0px 0px;
+    }
+}
+
+
+/* footer */
+
+footer {
+    margin-top: 220px;
+}
+
+.footerLinks {
+    margin: auto;
+    line-height: 2.4;
+    display: flex;
+    position: relative;
+    width: calc(100% - 26%);
+
+    .column {
+        min-width: min-content;
+        width: 30%;
+        float: left;
+        margin-top: 8px;
+    }
+    .columnHeader {
+        width: min-content;
+        float: left;
+        margin-right: 120px;
+        font-weight: bold;
+        font-size: 24px;
+    }
+    a:hover{
+        color: var(--accent1);
+    }
+}
+
+.footerBottom {
+    line-height: 2.4;
+    display: flex;
+    position: relative;
+    margin-left: 13%;
+    margin-top: 40px;
+
+    p {
+        margin-right: 120px;
+    }
+
+    a, span{
+        color: var(--text2);
+    }
+    a:hover{
+        filter: brightness(0.5);
+    }
+}
+
+.footer-squiggle{
+    color: var(--accent1);
+    fill: transparent;
+    stroke: currentColor;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    min-width: 1920px;
+    height: min-content;
+}
+
+/* sidebar */
+
+.sidebar {
+    width: 100px;
+    position: fixed;
+    left: 0;
+    height: auto;
+    padding-left: 50px;
+}
+
+.sidebar a {
+    font-size: 18px;
+    width: 100%;
+    display: block;
+    padding: 7px 0 7px 0;
+    margin: 10px 0 10px 0;
+}
+
+.sidebar .active {
+    text-decoration: underline solid var(--accent1) 2px;
+}
+
+.sidebar a:hover {
+    font-weight: bold;
+}
+
+.lower{
+    margin-top: 200px;
+}
+
+.lower a{
+    color: var(--text2);
+}
+
+.notification {
+    width: 100%;
+    top: 75px;
+    left: 0px;
+    text-align: center;
+    position: fixed;
+    background-color: var(--accent1);
+    z-index: 1001;
+    height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    box-shadow: 0px 0px 5px var(--boxblur);
+}
+
+.notification a, .notification span {
+    color: var(--text);
+    display: inline-block;
+    pointer-events: auto;
+}
+
+.notification svg {
+    margin-left: 30px;
+    color: var(--text);
+    fill: currentColor;
+    stroke: transparent;
+    display: inline-block;
+    width: 31px;
+    height: 31px;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.notification a:hover{
+    filter: brightness(0.8);
+}
