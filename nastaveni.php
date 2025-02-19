@@ -1,4 +1,8 @@
-<?php include_once 'header.php' ?>
+<?php 
+include_once 'header.php';
+include_once 'includes/functions.php';
+include_once 'includes/database.php';
+?>
 
 <div class="vedle">
     <section class="nastaveni-sidebar">
@@ -24,11 +28,13 @@
 
             <?php } else if ($_GET["TAB"] == "soukromi") { ?>
                 <p>Soukromí</p><br>
-                <label class="switch">
-                    <input type="checkbox" name="privatni">
-                    <span class="slider"></span>
-                </label>
-                <label for="privatni">Skrýt liky na svém profilu</label><br>
+                <form action="includes/hideLikesScript.php" method="post">
+                    <label for="privatni">Skrýt liky na svém profilu</label><br>
+                    <label class="switch">
+                        <input type="checkbox" name="privatni" <?php echo(checkskrytliky($conn, $_SESSION["ID_uzivatel"])); ?> onchange="this.form.submit()">
+                        <span class="slider"></span>
+                    </label>
+                </form>
             <?php } else if ($_GET["TAB"] == "vzhled") { ?>
                 <p>Vzhled stránky</p>
                 <label for="darkmode">Tmavý režim</label><br>
@@ -81,6 +87,8 @@
                 echo "<br><p style=\"color:var(--accent1) !important;\">Úspěch.</p>";
             } else if ($_GET["error"] == "nouser") {
                 echo "<br><p style=\"color:var(--accent1) !important;\">Uživatel s tímto jménem už existuje.</p>";
+            } else if ($_GET["error"] == "noemail") {
+                echo "<br><p style=\"color:var(--accent1) !important;\">Účet s tímto mailem už existuje.</p>";
             } else if ($_GET["error"] == "emptyinput") {
                 echo "<br><p style=\"color:var(--accent1) !important;\">Prosím, vypňte všechna pole.</p>";
             } else if ($_GET["error"] == "nomatch") {
@@ -94,38 +102,6 @@
             exit();
         }
         ?>
-
-        <!--
-        <p>Vzhled stránky</p>
-        <button onclick="toggleDarkMode()">Tmavý režim
-        </button>
-        <?php if (isset($_SESSION["ID_uzivatel"])) { ?>
-
-            <p>Profil</p><br>
-            <form action="includes/setimage.php" method="post" enctype="multipart/form-data">
-                <label for="obrazek">Změnit profilový obrázek</label>
-                <input type="file" name="obrazek" accept="image/png, image/jpeg, image/webp">
-                <button type="submit" name="submit">Uložit</button>
-            </form>
-            <form action="includes/removeimage.php" method="post" enctype="multipart/form-data">
-                <label for="obrazek">Odstranit profilový obrázek</label>
-                <button type="submit" name="submit">Odstranit</button>
-            </form>
-
-            <p>smazat účet</p><br>
-            <form action="includes/deleteaccountScript.php" method="post">
-                <button type="submit" name="submit" onclick="return confirm('Opravdu chcete smazat váš účet? (účet bude instantně smazán a s tím i vaše příspěvky, toto nejde vrátit!)')">Smazat účet</button>
-            </form>
-
-            <p>soukromí</p><br>
-            <label class="switch">
-                <input type="checkbox" name="privatni">
-                <span class="slider"></span>
-            </label>
-            <label for="privatni">privátní</label><br>
-        -->
-
-    <?php } ?>
     <?php
     if (isset($_GET["error"])) {
         if ($_GET["error"] == "cantdeleteadmin") {

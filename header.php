@@ -17,6 +17,7 @@ session_start();
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
@@ -66,16 +67,16 @@ session_start();
         </nav>
         <?php
         if (isset($_SESSION["ID_uzivatel"])) {
-            if (!file_exists('profiles/' . $_SESSION["ID_uzivatel"] . '.webp') && basename($_SERVER['PHP_SELF']) != 'nastaveni.php') {
+            if (!file_exists('profiles/' . $_SESSION["ID_uzivatel"] . '.webp') && basename($_SERVER['PHP_SELF']) != 'nastaveni.php' && !isset($_COOKIE["hidepopup"])) {
                 echo '<a href="nastaveni.php?TAB=profilovyobrazek">';
-                echo '<div class="notification">';
+                echo '<div id="notification">';
                 echo '<span>Dokončete svůj profil přidáním profilového obrázku</span>';
-                echo '<a onclick="this.parentElement.style.display = \'none\'">';
+                echo '<a onclick="hidepopup()">';
                 echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M256-227.69 227.69-256l224-224-224-224L256-732.31l224 224 224-224L732.31-704l-224 224 224 224L704-227.69l-224-224-224 224Z"/></svg>';
                 echo '</a>';
                 echo '</div>';
                 echo '</a>';
             };
+            
         };
         ?>
-

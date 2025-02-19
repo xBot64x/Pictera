@@ -189,7 +189,7 @@ footer {
     color: var(--text2);
 }
 
-.notification {
+#notification {
     width: 100%;
     top: 75px;
     left: 0px;
@@ -205,13 +205,13 @@ footer {
     box-shadow: 0px 0px 5px var(--boxblur);
 }
 
-.notification a, .notification span {
+#notification a, #notification span {
     color: var(--text);
     display: inline-block;
     pointer-events: auto;
 }
 
-.notification svg {
+#notification svg {
     margin-left: 30px;
     color: var(--text);
     fill: currentColor;
@@ -223,6 +223,6 @@ footer {
     cursor: pointer;
 }
 
-.notification a:hover{
+#notification a:hover{
     filter: brightness(0.8);
 }

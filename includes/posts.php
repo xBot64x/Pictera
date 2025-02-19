@@ -3,7 +3,7 @@
 <section class="feed">
   <?php
   while ($post = mysqli_fetch_assoc($result)):
-    if (!$post['privatni']) {
+    if (!$post['privatni'] || isset($showprivate)) {
   ?>
       <div class="container">
         <a href="profil.php?ID=<?= htmlspecialchars($post['uzivatelskejmeno']) ?>">

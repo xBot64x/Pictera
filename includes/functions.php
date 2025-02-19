@@ -446,6 +446,41 @@ function changepassword($conn, $ID_uzivatel, $heslo, $stareheslo){ // pokud je s
     }
 }
 
+function checkskrytliky($conn, $ID_uzivatel){
+    $sql = "SELECT skryt_liky FROM uzivatele WHERE ID_uzivatel = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../nastaveni.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $ID_uzivatel);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    if ($row = mysqli_fetch_assoc($resultData)) {
+        return $row['skryt_liky'] == 1 ? "checked" : "";
+    }
+    return "";
+}
+
+function hideLikes($conn, $ID_uzivatel, $privatni){
+    $sql = "UPDATE uzivatele SET skryt_liky = ? WHERE ID_uzivatel = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../nastaveni.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ss", $privatni, $ID_uzivatel);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("location: ../nastaveni.php?TAB=soukromi");
+    exit();
+}
+
 // posty
 
 function convertTime($time)

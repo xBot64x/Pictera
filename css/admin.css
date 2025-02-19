@@ -1,0 +1,51 @@
+.admin {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 18px;
+        text-align: left;
+        color: var(--text);
+    }
+
+    table th,
+    table td {
+        border: 1px solid var(--text2);
+        vertical-align: middle;
+        text-align: left;
+        padding: 7px;
+    }
+
+    table th {
+        background-color: var(--accent1);
+        text-align: center;
+        padding: 7px;
+    }
+
+    table tr:nth-child(even) {
+        background-color: var(--tableeven);
+    }
+
+    table tr {
+        background-color: var(--tableodd);
+    }
+
+    table tr:hover {
+        background-color: var(--tablehover);
+    }
+
+    table img {
+        width: 50px;
+        height: auto;
+        border-radius: 5px;
+    }
+
+    table button {
+        padding: 4px 10px !important;
+        height: auto !important;
+    }
+
+    table button:hover {
+        background-color: var(--accent1);
+    }
+}

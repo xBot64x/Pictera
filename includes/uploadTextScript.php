@@ -6,6 +6,7 @@ if (isset($_POST["submit"])) {
   $misto = $_POST["misto"];
   $tagy = $_POST["tagy"];
   $ID_autor = $_SESSION["ID_uzivatel"];
+  $privatni = $_POST["privatni"];
 
   require_once 'database.php';
   require_once 'functions.php';

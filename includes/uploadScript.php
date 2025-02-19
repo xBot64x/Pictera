@@ -8,18 +8,8 @@ if (isset($_POST["submit"])) {
   $tagy = $_POST["tagy"];
   $obrazek = $_FILES["obrazek"];
   $ID_autor = $_SESSION["ID_uzivatel"];
-
-  if (isset($_POST["privatni"])) {
-    $privatni = 1;
-  } else {
-    $privatni = 0;
-  }
-
-  if (isset($_POST["zakazatstahovani"])) {
-    $stahovatelne = 0;
-  } else {
-    $stahovatelne = 1;
-  }
+  $privatni = (isset($_POST['privatni']) ? 1 : 0);
+  $stahovatelne = (isset($_POST['zakazatstahovani']) ? 0 : 1);
 
   require_once 'database.php';
   require_once 'functions.php';

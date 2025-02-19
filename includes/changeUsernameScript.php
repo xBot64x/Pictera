@@ -5,7 +5,7 @@ if (isset($_POST["submit"])) {
     $ID_uzivatel = $_SESSION["ID_uzivatel"];
     $jmeno = $_POST["novejmeno"];
 
-    if (empty($jemno)) {
+    if (empty($jmeno)) {
         header("location: ../nastaveni.php?error=emptyinput");
         exit();
     }

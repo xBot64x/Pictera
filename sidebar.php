@@ -1,7 +1,6 @@
 <?php if(isset($_SESSION["uzivatelskejmeno"])){ ?>
 <nav class="sidebar">
     <a href='feed.php'>Pro tebe</a>
-    <a href='feed.php?Order=oblibene'>Populární</a>
     <a href='feed.php?Order=cas'>Nové</a>
     <a href="profil.php?ID=<?php echo($_SESSION["uzivatelskejmeno"]);?>">Moje posty</a>
     <div class="lower">

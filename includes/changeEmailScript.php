@@ -5,6 +5,9 @@ if (isset($_POST["submit"])) {
     $ID_uzivatel = $_SESSION["ID_uzivatel"];
     $email = $_POST["novyemail"];
 
+    require_once 'database.php';
+    require_once 'functions.php';
+
     if (empty($email)) {
         header("location: ../nastaveni.php?error=emptyinput");
         exit();
@@ -13,11 +16,12 @@ if (isset($_POST["submit"])) {
         header("location: ../nastaveni.php?error=invalidemail");
         exit();
     }
+    if (usernameExists($conn, $email, $email) !== false) {
+        header("location: ../nastaveni.php?error=noemail");
+        exit();
+    }
 
-    require_once 'database.php';
-    require_once 'functions.php';
-
-    changeusername($conn, $ID_uzivatel, $email);
+    changeemail($conn, $ID_uzivatel, $email);
 }
 else {
     header("location: ../index.php");

@@ -6,12 +6,12 @@
         </div>
         <div class="column">
             <a href="index.php">Pictera</a><br><br>
-            <a href="#">Zdrojový kód</a><br>
+            <a href="https://github.com/xBot64x/Pictera">Zdrojový kód</a><br>
             <a href="#">O nás</a><br>
             <a href="podporit.php">Podpořit</a><br>
         </div>
         <div class="column">
-            <a href="#">Kontakt</a><br><br>
+            <a href="kontakt.php">Kontakt</a><br><br>
             <a href="#">E-mail</a><br>
             <a href="#">Twitter</a><br>
             <a href="#">Instagram</a><br>
