@@ -42,13 +42,24 @@ if (!$result) {
   echo "Chyba při načítání příspěvků: " . mysqli_error($conn);
   exit();
 }
+
+if ( == $_SESSION["ID_uzivatel"]) {
+  $showprivate = true;
+}
+
 ?>
+
 <?php include_once 'includes/posts.php' ?>
 
 <?php $post2 = mysqli_fetch_assoc($result) ?>
 
-<p><?= $post2['popis'] ?></p>
 
+<?php
+if (isset($popis)){
+  echo '<h1>Popis</h1>';
+  echo '<p>' . htmlspecialchars($popis) . '</p>';
+}
+?>
 
 <?php
 mysqli_close($conn);

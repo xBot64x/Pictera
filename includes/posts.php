@@ -4,6 +4,9 @@
   <?php
   while ($post = mysqli_fetch_assoc($result)):
     if (!$post['privatni'] || isset($showprivate)) {
+      if (isset($post['nazev'])) {
+        $popis = htmlspecialchars($post['popis']);
+      }
   ?>
       <div class="container">
         <a href="profil.php?ID=<?= htmlspecialchars($post['uzivatelskejmeno']) ?>">

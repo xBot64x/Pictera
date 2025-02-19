@@ -17,7 +17,7 @@ session_start();
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" type="text/css" href="css/admin.css">
+    <link rel="stylesheet" href="css/admin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
@@ -50,8 +50,8 @@ session_start();
                 if (isset($_SESSION["uzivatelskejmeno"])) {
                     echo '<a href="nahrat.php">Nahrát</a>';
                     echo '<div class="dropdown">';
-                    echo '<a class="navimage" href="profil.php?ID=' . $_SESSION["uzivatelskejmeno"] . '"><img src="profiles/' . $_SESSION["profilovyobrazek"] . '.webp"></a>';
-                    echo '<div class="dropdown-content">';
+                    echo '<a onclick="showHeaderDropdown()" class="navimage"><img src="profiles/' . $_SESSION["profilovyobrazek"] . '.webp"></a>';
+                    echo '<div class="dropdown-content" id="headerDropdown">';
                     echo '<a href="profil.php?ID=' . $_SESSION["uzivatelskejmeno"] . '">' . $_SESSION["uzivatelskejmeno"] . '</a>';
                     echo '<a href="nastaveni.php">Nastavení</a>';
                     echo '<a href="includes/logout.php">Odhlásit se</a>';

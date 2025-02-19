@@ -30,3 +30,20 @@ function setCookie(cname, cvalue, exdays) {
     let expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
+
+function showHeaderDropdown() {
+    event.stopPropagation();
+    document.getElementById('headerDropdown').classList.toggle('show');
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.navimage')) {
+        let dropdowns = document.getElementsByClassName('dropdown-content');
+        for (let i = 0; i < dropdowns.length; i++) {
+            let openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}

@@ -4,7 +4,6 @@
     <a href='feed.php?Order=cas'>Nové</a>
     <a href="profil.php?ID=<?php echo($_SESSION["uzivatelskejmeno"]);?>">Moje posty</a>
     <div class="lower">
-        <a href="index.php">Pictera</a>
         <a href="kontakt.php">Kontakt</a>
         <a href="podporit.php">Podpořit</a>
     </div>
