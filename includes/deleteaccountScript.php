@@ -9,14 +9,14 @@ if (isset($_POST["submit"])) {
 
     if(isset($_SESSION['admin'])){
         if($_GET["ID"] != $ID_uzivatel){
-            deleteaccount($conn, $_GET["ID"]);
+            deleteaccount($conn, $_GET["ID"], true);
             exit();
         }
         header("location: ../nastaveni.php?error=cantdeleteadmin");
         exit();
     }
 
-    deleteaccount($conn, $ID_uzivatel);
+    deleteaccount($conn, $ID_uzivatel, false);
 }
 else {
     header("location: ../index.php");

@@ -45,7 +45,8 @@ session_start();
             <div class="header-right">
                 <?php
                 if (isset($_SESSION["admin"])) {
-                    echo '<a href="admin.php">Admin panel</a>';
+                    echo '<a href="admin?TAB=uzivatele.php">Tabulka uživatelů</a>';
+                    echo '<a href="admin?TAB=posty.php">Tabulka postů</a>';
                 }
                 if (isset($_SESSION["uzivatelskejmeno"])) {
                     echo '<a href="nahrat.php">Nahrát</a>';

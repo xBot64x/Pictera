@@ -36,12 +36,17 @@ if (isset($_GET["ID"])) {
         $profilovyobrazek = $row['profilovyobrazek'];
         $skryt_liky = $row['skryt_liky'];
     } else {
-        $username = "Uživatel nenalezen";
+        echo '<p class="nopost">Uživatel neexistuje</p>';
+        include_once 'footer.php';
+        exit();
     }
 
     mysqli_stmt_close($stmt);
-} else {
-    $uzivatelskejmeno = "Není vybrán uživatel";
+} 
+else {
+    echo '<p class="nopost">Uživatel neexistuje</p>';
+    include_once 'footer.php';
+    exit();
 }
 ?>
 

@@ -28,6 +28,10 @@ a {
         all: unset !important;
         cursor: pointer !important;
     }
+
+    .navimage:hover img, .show img{
+        box-shadow: 0 0 8px var(--boxblur);
+    }
     
     .navimage img {
         width: 52px;

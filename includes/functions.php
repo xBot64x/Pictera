@@ -307,7 +307,7 @@ function removeprofilepicture($conn, $ID_uzivatel){
     exit();
 }
 
-function deleteaccount($conn, $ID_uzivatel){
+function deleteaccount($conn, $ID_uzivatel, $admin){
     // smazat uzivatele z databaze
     $sql = "DELETE FROM uzivatele WHERE ID_uzivatel = ?;";
     $stmt = mysqli_stmt_init($conn);
@@ -319,9 +319,6 @@ function deleteaccount($conn, $ID_uzivatel){
     mysqli_stmt_bind_param($stmt, "s", $ID_uzivatel);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-
-    session_unset();
-    session_destroy();
 
     $profile = '../profiles/' . $ID_uzivatel . '.webp';
     if (file_exists($profile)) {
@@ -361,8 +358,17 @@ function deleteaccount($conn, $ID_uzivatel){
     mysqli_stmt_execute($stmt);
 
     mysqli_stmt_close($stmt);
-    header("location: ../index.php");
-    exit();
+
+    if (!$admin) {
+        session_unset();
+        session_destroy();
+        header("location: ../index.php");
+        exit();
+    }
+    else{
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit();
+    }
 }
 
 function changeusername($conn, $ID_uzivatel, $novejmeno){
