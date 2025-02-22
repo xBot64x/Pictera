@@ -3,7 +3,7 @@
 <section class="feed">
   <?php
   while ($post = mysqli_fetch_assoc($result)):
-    if (!$post['privatni'] || isset($showprivate)) {
+    if ($post['privatni'] == 0 || ($post['ID_autor'] == $_SESSION['ID_uzivatel'] && isset($showprivate))|| isset($_SESSION['admin'])) {	
       if (isset($post['nazev'])) {
         $popis = htmlspecialchars($post['popis']);
       }

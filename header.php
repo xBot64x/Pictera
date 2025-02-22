@@ -45,11 +45,11 @@ session_start();
             <div class="header-right">
                 <?php
                 if (isset($_SESSION["admin"])) {
-                    echo '<a href="admin?TAB=uzivatele.php">Tabulka uživatelů</a>';
-                    echo '<a href="admin?TAB=posty.php">Tabulka postů</a>';
+                    echo '<a class="navbutton" href="admin.php?TAB=uzivatele">Tabulka uživatelů</a>';
+                    echo '<a class="navbutton" href="admin.php?TAB=posty">Tabulka postů</a>';
                 }
                 if (isset($_SESSION["uzivatelskejmeno"])) {
-                    echo '<a href="nahrat.php">Nahrát</a>';
+                    echo '<a class="navbutton" href="nahrat.php">Nahrát</a>';
                     echo '<div class="dropdown">';
                     echo '<a onclick="showHeaderDropdown()" class="navimage"><img src="profiles/' . $_SESSION["profilovyobrazek"] . '.webp"></a>';
                     echo '<div class="dropdown-content" id="headerDropdown">';
@@ -59,9 +59,9 @@ session_start();
                     echo '</div>';
                     echo '</>';
                 } else {
-                    echo '<a href="nastaveni.php">Nastavení</a>';
-                    echo '<a href="registrace.php">registrace</a>';
-                    echo '<a href="prihlaseni.php" style="color: var(--accent1)">přihlásit se</a>';
+                    echo '<a class="navbutton" href="nastaveni.php">Nastavení</a>';
+                    echo '<a class="navbutton" href="registrace.php">registrace</a>';
+                    echo '<a class="navbutton" href="prihlaseni.php" style="color: var(--accent1)">přihlásit se</a>';
                 }
                 ?>
             </div>

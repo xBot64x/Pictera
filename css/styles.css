@@ -61,7 +61,8 @@ span,
 table,
 th,
 td,
-tr {
+tr,
+body {
     font-family: "Kumbh Sans", Arial, Verdana, Tahoma;
     color: var(--text);
 }
@@ -731,3 +732,50 @@ input:checked+.slider:before {
         font-weight: bold;
     }
 }
+
+
+/* Responzibilita */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+    .main {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    pre {
+        padding: 0 14px 0 14px !important;
+    }
+
+    .feed {
+        .container {
+            padding: 0;
+        }
+        .bot span {
+            margin-left: 14px !important;
+        }
+        .buttons {
+            margin: 0 7px 0 7px !important;
+        }
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+
+} 

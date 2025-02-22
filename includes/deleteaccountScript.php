@@ -8,7 +8,11 @@ if (isset($_POST["submit"])) {
     require_once 'functions.php';
 
     if(isset($_SESSION['admin'])){
-        if($_GET["ID"] != $ID_uzivatel){
+        if($_GET["ID"] != $ID_uzivatel && $_POST["ID"] != $ID_uzivatel){
+            if(isset($_POST["ID"])){
+                deleteaccount($conn, $_POST["ID"], true);
+                exit();
+            }
             deleteaccount($conn, $_GET["ID"], true);
             exit();
         }

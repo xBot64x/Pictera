@@ -13,22 +13,28 @@ include_once 'sidebar.php';
     require_once 'includes/database.php';
     require_once 'includes/functions.php';
 
-    if ($_GET["TAB"]) {
+    if ($_GET["TAB"] == "uzivatele") {
         $sql = "SELECT * FROM uzivatele";
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
             echo "<table border='1'>";
-            echo "<tr><th>ID</th><th>Uživatelské jméno</th><th>Email</th><th>Admin</th><th>Akce</th></tr>";
+            echo "<tr><th>ID</th><th>Uživatelské jméno</th><th>Email</th><th>Skrýt liky</th><th>Náhled</th><th>Změnit heslo</th><th>Smazat</th></tr>";
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
                 echo "<td>" . $row["ID_uzivatel"] . "</td>";
-                echo "<td>" . $row["uzivatelskejmeno"] . "</td>";
+                echo "<td><a href='profil.php?ID=". $row["uzivatelskejmeno"] ." '>" . $row["uzivatelskejmeno"] . "</a></td>";
                 echo "<td>" . $row["email"] . "</td>";
-                echo "<td>" . ($row["admin"] ? "Ano" : "Ne") . "</td>";
-                echo "<td style='width:30px'><form action='includes/removeScript.php' method='GET'>
+                echo "<td>" . ($row["skryt_liky"] ? "Ano" : "Ne") . "</td>";
+                echo "<td><img src='profiles/" . $row["profilovyobrazek"] . ".webp' alt='" . $row["uzivatelskejmeno"] . "' style='width: 50px; height: auto;'></td>";
+                echo "<td style='width:30px'><form action='includes/changePasswordAdminScript.php' method='POST'>
+            <input name='noveheslo' placeholder='heslo' required>
+
+            <button type='submit' name='submit'>Změnit heslo</button>
+          </form></td>";
+                echo "<td style='width:30px'><form action='includes/deleteaccountScript.php' method='POST'>
             <input type='hidden' name='ID' value='" . $row["ID_uzivatel"] . "'>
-            <button type='submit'>Smazat</button>
+            <button type='submit' name='submit'>Smazat</button>
           </form></td>";
                 echo "</tr>";
             }

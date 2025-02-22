@@ -452,6 +452,24 @@ function changepassword($conn, $ID_uzivatel, $heslo, $stareheslo){ // pokud je s
     }
 }
 
+function changepasswordadmin($conn, $ID_uzivatel, $heslo){
+    $sql = "UPDATE uzivatele SET heslo = ? WHERE ID_uzivatel = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../admin.php?error=stmtfailed");
+        exit();
+    }
+
+    $hashedpassword = password_hash($heslo, PASSWORD_DEFAULT);
+
+    mysqli_stmt_bind_param($stmt, "ss", $hashedpassword, $ID_uzivatel);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("location: ../admin.php?TAB=uzivatele&error=none");
+    exit();
+}
+
 function checkskrytliky($conn, $ID_uzivatel){
     $sql = "SELECT skryt_liky FROM uzivatele WHERE ID_uzivatel = ?;";
     $stmt = mysqli_stmt_init($conn);

@@ -43,16 +43,10 @@ if (!$result) {
   exit();
 }
 
-if ( == $_SESSION["ID_uzivatel"]) {
-  $showprivate = true;
-}
-
+$showprivate = true;
 ?>
 
 <?php include_once 'includes/posts.php' ?>
-
-<?php $post2 = mysqli_fetch_assoc($result) ?>
-
 
 <?php
 if (isset($popis)){

@@ -48,4 +48,17 @@
     table button:hover {
         background-color: var(--accent1);
     }
+
+    input{
+        width: 140px;
+        color: var(--text);
+        background-color: var(--input);
+        border: 1px solid var(--border);
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    input:focus {
+        outline: 3px solid var(--accent1);
+    }
 }

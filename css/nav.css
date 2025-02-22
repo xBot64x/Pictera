@@ -237,3 +237,39 @@ footer {
 #notification a:hover{
     filter: brightness(0.8);
 }
+
+/* Responzibilita */
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+    .header-right .navbutton {
+        display: none !important;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+    .header-right a {
+        padding: 13px 10px 13px 10px !important;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+    .header-right a {
+        padding: 13px 20px 13px 20px !important;
+    }
+} 
