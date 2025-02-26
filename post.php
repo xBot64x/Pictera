@@ -18,7 +18,7 @@ if (!in_array($order, $valid_columns)) {
   $order = 'oblibene';
 }
 
-$sql = "SELECT o.ID_obrazky, o.ID_autor, o.nazev, o.cas, o.popis, o.oblibene, o.privatni, o.stahovatelne, u.uzivatelskejmeno, u.misto, u.profilovyobrazek, 
+$sql = "SELECT o.ID_obrazky, o.ID_autor, o.nazev, o.cas, o.popis, o.oblibene, o.privatni, o.stahovatelne, o.misto, u.uzivatelskejmeno, u.profilovyobrazek, 
         (SELECT COUNT(*) FROM oblibene WHERE ID_obrazek = o.ID_obrazky AND ID_uzivatel = ?) AS liked
         FROM obrazky o 
         INNER JOIN uzivatele u ON o.ID_autor = u.ID_uzivatel 

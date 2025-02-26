@@ -3,7 +3,7 @@
 <section class="feed">
   <?php
   while ($post = mysqli_fetch_assoc($result)):
-    if ($post['privatni'] == 0 || ($post['ID_autor'] == $_SESSION['ID_uzivatel'] && isset($showprivate))|| isset($_SESSION['admin'])) {	
+    if ($post['privatni'] == 0 || ($post['ID_autor'] == $_SESSION['ID_uzivatel'] && isset($showprivate)) || isset($_SESSION['admin'])) {
       if (isset($post['nazev'])) {
         $popis = htmlspecialchars($post['popis']);
       }
@@ -41,7 +41,7 @@
               <?php endif; ?>
             </div>
           </a>
-          <span><?= htmlspecialchars($post['oblibene']) ?> oblíbené</span>
+          <span><?= htmlspecialchars($post['oblibene']) ?></span>
           <div class="dropdown">
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -74,10 +74,22 @@
             echo ('<span>' . htmlspecialchars($post['nazev']) . '</span>');
           }
           ?>
+          <?php if (!empty($post['misto'])): ?>
+          <div class="location">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+              <path d="M480-191q119-107 179.5-197T720-549q0-105-68.5-174T480-792q-103 0-171.5 69T240-549q0 71 60.5 161T480-191Zm0 72q-13 0-24.5-4.5T433-137q-40-35-86.5-82T260-320q-40-54-66-112.5T168-549q0-134 89-224.5T480-864q133 0 222.5 90.5T792-549q0 58-26.5 117t-66 113q-39.5 54-86 100.5T527-137q-11 9-22.5 13.5T480-119Zm0-433Zm0 72q30 0 51-21t21-51q0-30-21-51t-51-21q-30 0-51 21t-21 51q0 30 21 51t51 21Z" />
+            </svg>
+            <span><?= htmlspecialchars($post['misto']) ?></span>
+          </div>
+          <?php endif; ?>
         </div>
+        <!-- write php code to display the squiggle if found more than one post -->
+        
+        <?php if (mysqli_num_rows($result) > 1) { ?>
         <svg class="squiggle" viewBox="0 0 199 7" xmlns="http://www.w3.org/2000/svg">
           <path d="M1 3.5C5.7381 0.166667 10.4762 0.166667 15.2143 3.5C19.9524 6.83333 24.6905 6.83333 29.4286 3.5C34.1667 0.166667 38.9048 0.166667 43.6429 3.5C48.381 6.83333 53.119 6.83333 57.8571 3.5C62.5952 0.166667 67.3333 0.166667 72.0714 3.5C76.8095 6.83333 81.5476 6.83333 86.2857 3.5C91.0238 0.166667 95.7619 0.166667 100.5 3.5C105.238 6.83333 109.976 6.83333 114.714 3.5C119.452 0.166667 124.19 0.166667 128.929 3.5C133.667 6.83333 138.405 6.83333 143.143 3.5C147.881 0.166667 152.619 0.166667 157.357 3.5C162.095 6.83333 166.833 6.83333 171.571 3.5C176.31 0.166667 181.048 0.166667 185.786 3.5C190.524 6.83333 195.262 6.83333 200 3.5" stroke-width="2" />
         </svg>
+        <?php } ?>
       </div>
   <?php }
   endwhile; ?>

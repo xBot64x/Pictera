@@ -160,18 +160,18 @@ function invalidFileType($obrazek)
     return $result;
 }
 
-function uploadImage($conn, $nazev, $popis, $misto, $tagy, $ID_autor, $obrazek, $privatni, $stahovatelne)
+function uploadImage($conn, $nazev, $popis, $misto, $ID_autor, $obrazek, $privatni, $stahovatelne)
 {
     mysqli_begin_transaction($conn);
 
     try {
-        $sql = "INSERT INTO obrazky (nazev, popis, misto, tagy, ID_autor, privatni, stahovatelne) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        $sql = "INSERT INTO obrazky (nazev, popis, misto, ID_autor, privatni, stahovatelne) VALUES (?, ?, ?, ?, ?, ?);";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             throw new Exception("Statement preparation failed");
         }
 
-        mysqli_stmt_bind_param($stmt, "sssssss", $nazev, $popis, $misto, $tagy, $ID_autor, $privatni, $stahovatelne);
+        mysqli_stmt_bind_param($stmt, "ssssss", $nazev, $popis, $misto, $ID_autor, $privatni, $stahovatelne);
         mysqli_stmt_execute($stmt);
         $lastID = mysqli_insert_id($conn);
         mysqli_stmt_close($stmt);
@@ -198,17 +198,17 @@ function uploadImage($conn, $nazev, $popis, $misto, $tagy, $ID_autor, $obrazek, 
     }
 }
 
-function uploadText($conn, $text, $misto, $tagy, $ID_autor)
+function uploadText($conn, $text, $misto, $privatni, $ID_autor)
 {
     mysqli_begin_transaction($conn);
 
-    $sql = "INSERT INTO obrazky (popis, misto, tagy, ID_autor) VALUES (?, ?, ?, ?);";
+    $sql = "INSERT INTO obrazky (popis, misto, privatni, ID_autor) VALUES (?, ?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         throw new Exception("Statement preparation failed");
     }
 
-    mysqli_stmt_bind_param($stmt, "ssss", $text, $misto, $tagy, $ID_autor);
+    mysqli_stmt_bind_param($stmt, "ssss", $text, $misto, $privatni, $ID_autor);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 

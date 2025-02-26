@@ -15,6 +15,6 @@ if (isset($_POST["submit"])) {
     loginUser($conn, $jmeno, $heslo);
 }
 else {
-    header("location: ../login.php");
+    header("location: ../prihlaseni.php");
     exit();
 }

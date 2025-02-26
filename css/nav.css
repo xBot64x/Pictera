@@ -27,6 +27,7 @@ a {
     .navimage {
         all: unset !important;
         cursor: pointer !important;
+        user-select: none !important;
     }
 
     .navimage:hover img, .show img{
@@ -55,6 +56,8 @@ a {
         margin: 0 5px 0 5px!important;
         padding: 13px 40px 13px 20px !important;
     }
+
+
     
     .dropdown a:hover {
         font-weight: bold;
@@ -89,10 +92,14 @@ a {
         float: right;
     }
     
-    .header-right a {
+    .header-right a:not(.mobile) {
         margin-left: 5px;
         display: block;
         padding: 13px 35px 13px 35px;
+    }
+
+    .mobile, hr{
+        display: none;
     }
     
     .logo {
@@ -120,7 +127,7 @@ footer {
 
     .column {
         min-width: min-content;
-        width: 30%;
+        width: 33%;
         float: left;
         margin-top: 8px;
     }
@@ -140,11 +147,13 @@ footer {
     line-height: 2.4;
     display: flex;
     position: relative;
-    margin-left: 13%;
-    margin-top: 40px;
+    margin: 40px auto auto auto;
+    line-height: 2.4;
+    display: flex;
+    width: calc(100% - 26%);
 
     p {
-        margin-right: 120px;
+        margin-right: 10%;
     }
 
     a, span{
@@ -240,36 +249,36 @@ footer {
 
 /* Responzibilita */
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (max-width: 600px) {
-
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
-    .sidebar {
-        display: none;
-    }
-    .header-right .navbutton {
-        display: none !important;
-    }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (max-width: 992px) {
-    .header-right a {
-        padding: 13px 10px 13px 10px !important;
-    }
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {
     .header-right a {
         padding: 13px 20px 13px 20px !important;
     }
 } 
+
+@media only screen and (max-width: 992px) {
+    .header-right a {
+        padding: 13px 10px 13px 10px !important;
+    }
+
+    .columnHeader {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .sidebar, .navbutton {
+        display: none !important;
+    }
+    .mobile, hr{
+        display: block !important;
+    }
+
+    hr{
+        border: solid var(--boxblur) 1px;
+        filter: blur(3px);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+}

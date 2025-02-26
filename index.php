@@ -31,8 +31,9 @@
                     </svg>
                 </div>
                 <div class="dropdown-content">
-                    <a href="uploads/28.webp" download="">Stáhnout</a> 
-                    <a onclick="generatelink(this, 'http://localhost:3000/post.php?p=28')">Sdílet</a>
+                    <a href="uploads/28.webp" download="">Stáhnout</a>
+                    <?php $share_link = (empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]/index.php"; ?>
+                    <a onclick="generatelink(this, '<?= $share_link ?>')">Sdílet</a>
                 </div>
             </div>
         </div>

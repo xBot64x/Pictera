@@ -260,6 +260,34 @@ input:checked+.slider:before {
         box-sizing: border-box;
         font-size: 16px;
         resize: none;
+    }    
+    
+    .image {
+        width: 650px;
+        display: block;
+        float: left;
+        margin: 25px 0 0 50px;
+    }
+
+    #imgInp {
+        background-color: transparent !important;
+        border: none !important;
+        box-sizing: unset !important;
+    }
+
+    #remainingChars {
+        float: right;
+        color: var(--text2);
+    }
+
+    img {
+        width: 100%;
+        height: 650px;
+        object-fit: contain;
+        background-color: var(--input);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        box-sizing: border-box;
     }
 }
 
@@ -329,37 +357,14 @@ input:checked+.slider:before {
         font-size: 16px;
         resize: none;
     }
+
+    #remainingChars {
+        color: var(--text2);
+        user-select: none;
+    }
 }
 
 .uploadimage, .uploadtext {
-    .image {
-        width: 650px;
-        display: block;
-        float: left;
-        margin: 25px 0 0 50px;
-    }
-
-    #imgInp {
-        background-color: transparent !important;
-        border: none !important;
-        box-sizing: unset !important;
-    }
-
-    #remainingChars {
-        float: right;
-        color: var(--text2);
-    }
-
-    img {
-        width: 650px;
-        height: 650px;
-        object-fit: contain;
-        background-color: var(--input);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        box-sizing: border-box;
-    }
-
     input {
         width: 100%;
         padding: 12px;
@@ -490,7 +495,7 @@ input:checked+.slider:before {
     .buttons {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 5px;
         margin-bottom: 15px;
     }
 
@@ -510,6 +515,27 @@ input:checked+.slider:before {
     .buttons span {
         font-size: 14px;
         color: var(--text);
+    }
+
+    .location {
+        display: flex;
+        align-items: center;
+        margin-left: 3px;
+        margin-top: 5px;
+    }
+
+    .location svg{
+        width: 20px !important;
+        height: 20px !important;
+        fill: currentColor;
+        stroke: transparent;
+        color: var(--text2) !important;
+    }
+
+    .location span{
+        font-size: 14px !important;
+        color: var(--text2) !important;
+        margin-bottom: unset !important;
     }
 
     .bot {
@@ -736,12 +762,65 @@ input:checked+.slider:before {
 
 /* Responzibilita */
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1650px) {
+    .uploadimage {
+        width: 100%;
+        height: 800px;
+    }
+
+    .uploadimage .image {
+        width: 400px;
+        height: 400px;
+    }
+
+    #preview {
+        width: 400px;
+        height: 400px;
+    }
+
+    .uploadimage {
+        width: 950px;
+        height: 800px;
+    }
+} 
+
+@media only screen and (max-width: 1200px) {
+    .uploadimage .image {
+        width: 350px;
+        height: 350px;
+    }
+
+    #preview {
+        width: 350px;
+        height: 350px;
+    }
+
+    .uploadimage {
+        width: 500px !important;
+        height: 1200px !important;
+        text-align: center;
+    }
+
+    .image {
+        margin: 25px 0 0 80px !important;
+    }
+} 
+
+@media only screen and (max-width: 992px) {
+    .formular {
+        width: 350px !important;
+    }
+
+    .uploadtext {
+        width: 490px !important;
+    }
+}
+
+@media only screen and (max-width: 768px) {
 
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
+
 @media only screen and (max-width: 600px) {
     .main {
         margin-left: 0;
@@ -763,19 +842,26 @@ input:checked+.slider:before {
             margin: 0 7px 0 7px !important;
         }
     }
+
+    .uploadimage , .uploadtext{
+        width: 100% !important;
+        height: fit-content !important;
+        margin: none;
+        background-color: var(--background);
+        box-shadow: none !important;
+        border-radius: unset !important;
+    }
+
+    .uploadimage .formular, .uploadtext .formular {
+        float: unset !important;
+        margin: auto;
+        padding: 50px 0 0 0;
+    }
+
+    .image {
+        margin: 0 !important;
+        margin: auto !important;
+        float: unset !important;
+    }
+
 }
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
-
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (max-width: 992px) {
-
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (max-width: 1200px) {
-
-} 

@@ -1,5 +1,4 @@
 <?php include_once 'header.php' ?>
-<?php include_once 'sidebar.php' ?>
 
 <?php
 if (!isset($_SESSION["ID_uzivatel"])) {
@@ -21,8 +20,6 @@ if (!isset($_SESSION["ID_uzivatel"])) {
       <input type="text" name="nazev" placeholder="název *">
       <textarea type="text" name="popis" placeholder="popis"></textarea>
       <input type="text" name="misto" placeholder="místo">
-      <input type="text" name="tagy" placeholder="tagy">
-      <p style="color: var(--text2);">oddělte mezerou</p>
       <br><br><br>
       <label class="switch">
         <input type="checkbox" name="zakazatstahovani">

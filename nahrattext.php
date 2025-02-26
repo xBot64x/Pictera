@@ -14,8 +14,6 @@ if (!isset($_SESSION["ID_uzivatel"])) {
       <textarea id="text" name="text" placeholder="text *" maxlength="1024"></textarea>
       <p id="remainingChars">1024</p>
       <input type="text" name="misto" placeholder="místo">
-      <input type="text" name="tagy" placeholder="tagy">
-      <p style="color: var(--text2);">oddělte mezerou</p>
       <br><br><br>
       <label class="switch">
         <input type="checkbox" name="privatni">

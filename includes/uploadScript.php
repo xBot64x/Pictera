@@ -5,7 +5,6 @@ if (isset($_POST["submit"])) {
   $nazev = $_POST["nazev"];
   $popis = $_POST["popis"];
   $misto = $_POST["misto"];
-  $tagy = $_POST["tagy"];
   $obrazek = $_FILES["obrazek"];
   $ID_autor = $_SESSION["ID_uzivatel"];
   $privatni = (isset($_POST['privatni']) ? 1 : 0);
@@ -23,7 +22,7 @@ if (isset($_POST["submit"])) {
     exit();
   }
 
-  uploadImage($conn, $nazev, $popis, $misto, $tagy, $ID_autor, $obrazek, $privatni, $stahovatelne);
+  uploadImage($conn, $nazev, $popis, $misto, $ID_autor, $obrazek, $privatni, $stahovatelne);
 
 } else {
   header("location: ../upload.php");

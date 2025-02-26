@@ -4,9 +4,8 @@ session_start();
 if (isset($_POST["submit"])) {
   $text = $_POST["text"];
   $misto = $_POST["misto"];
-  $tagy = $_POST["tagy"];
   $ID_autor = $_SESSION["ID_uzivatel"];
-  $privatni = $_POST["privatni"];
+  $privatni = (isset($_POST['privatni']) ? 1 : 0);
 
   require_once 'database.php';
   require_once 'functions.php';
@@ -16,7 +15,7 @@ if (isset($_POST["submit"])) {
     exit();
   }
 
-  uploadText($conn, $text, $misto, $tagy, $ID_autor);
+  uploadText($conn, $text, $misto, $privatni, $ID_autor);
 
 } else {
   header("location: ../upload.php");
