@@ -4,7 +4,7 @@ include_once 'sidebar.php';
 include_once 'includes/database.php';
 
 if (!isset($_SESSION["ID_uzivatel"]) || !isset($_GET["p"])) {
-  header("location: ../index.php");
+  header("location: ./index.php");
   exit();
 }
 
@@ -27,7 +27,7 @@ $sql = "SELECT o.ID_obrazky, o.ID_autor, o.nazev, o.cas, o.popis, o.oblibene, o.
 $stmt = mysqli_stmt_init($conn);
 
 if (!mysqli_stmt_prepare($stmt, $sql)) {
-  header("location: ../profil.php?error=stmtfailed");
+  header("location: ./profil.php?error=stmtfailed");
   exit();
 }
 

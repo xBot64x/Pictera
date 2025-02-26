@@ -1,5 +1,12 @@
 <?php include_once 'header.php'; ?>
 
+<?php
+if (!isset($_SESSION["ID_uzivatel"])) {
+  header("location: ./prihlaseni.php");
+  exit();
+}
+?>
+
 <section class="upload">
     <h2>Vyberte možnost</h2>
     <a href="nahratobrazek.php">

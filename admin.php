@@ -6,7 +6,7 @@ include_once 'sidebar.php';
     <?php
 
     if (!isset($_SESSION["admin"])) {
-        header("location: prihlaseni.php");
+        header("location: /prihlaseni.php");
         exit();
     }
 

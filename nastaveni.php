@@ -98,7 +98,7 @@ include_once 'includes/database.php';
             }
         }
         else {
-            header("location: nastaveni.php?TAB=vzhled");
+            header("location: ./nastaveni.php?TAB=vzhled");
             exit();
         }
         ?>

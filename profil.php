@@ -18,7 +18,7 @@ if (isset($_GET["ID"])) {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../profil.php?error=stmtfailed");
+        header("location: ./profil.php?error=stmtfailed");
         exit();
     }
 
@@ -84,7 +84,7 @@ else {
 
 <?php
 if (!isset($_SESSION["ID_uzivatel"])) {
-    header("location: ../index.php");
+    header("location: ./index.php");
     exit();
 }
 
@@ -120,7 +120,7 @@ if ($ID_uzivatel !== null) {
     $stmt2 = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt2, $sql)) {
-        header("location: ../profil.php?error=stmtfailed");
+        header("location: ./profil.php?error=stmtfailed");
         exit();
     }
 

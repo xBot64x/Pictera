@@ -3,7 +3,7 @@
 
 <?php
 if (!isset($_SESSION["ID_uzivatel"])) {
-  header("location: ../prihlaseni.php");
+  header("location: ./prihlaseni.php");
   exit();
 }
 ?>
