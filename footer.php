@@ -9,6 +9,7 @@
             <a href="https://github.com/xBot64x/Pictera">Zdrojový kód</a><br>
             <a href="#">O nás</a><br>
             <a href="podporit.php">Podpořit</a><br>
+            <a href="README.md">ReadMe</a><br>
         </div>
         <div class="column">
             <a href="kontakt.php">Kontakt</a><br><br>
