@@ -41,6 +41,25 @@ a {
         display: block;
         pointer-events: none; 
     }
+
+    .navimage svg {
+        width: 52px;
+        height: 52px;
+        display: block;
+        pointer-events: none; 
+        fill: currentColor;
+        stroke: transparent;
+        color: var(--text);
+    }
+
+    .svg svg{
+        width: 48px;
+        height: 48px;
+    }
+
+    .svg {
+        width: 48px;
+    }
     
     .dropdown-content {
         position: absolute;
@@ -280,5 +299,8 @@ footer {
 }
 
 @media only screen and (max-width: 600px) {
-
+    .header {
+        width: calc(100% - 10%);
+        padding: 25px 5% 20px 5%;
+    }
 }

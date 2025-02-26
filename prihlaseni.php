@@ -16,7 +16,7 @@
             </svg>
             <input type="password" name="heslo" placeholder="heslo">
         </div>
-        <a href="#" style="color:var(--accent1)">zapomenuté heslo</a>
+        <a href="zapomenute.php" style="color:var(--accent1)">zapomenuté heslo</a>
 
         <button type="submit" name="submit">Přihlásit se</button>
 

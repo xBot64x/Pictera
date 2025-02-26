@@ -679,6 +679,24 @@ input:checked+.slider:before {
     margin-left: calc(50% - 120px);
 }
 
+.popis{
+    width: fit-content;
+    max-width: 370px;
+    margin: auto;
+    padding: 0 14px 50px 14px;
+}
+
+.popis h1{
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+.popis * {
+    color: var(--text);
+}
+
 .vedle{ /* .nastaveni a .nastaveni-sidebar budou vedle sebe */
     display: flex;
     width: fit-content;
@@ -816,8 +834,27 @@ input:checked+.slider:before {
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 798px) {
+    .vedle{
+        flex-direction: column;
+        width: fit-content;
+        transform: translate(0, 0);
+        width: 100%;
+    }
 
+    .nastaveni{
+        width: 90%;
+        padding: 50px 5% 100px 5%;
+    }
+
+    .nastaveni-sidebar{
+        width: 100%;
+        padding: 50px 5% 0 5%;
+    }
+
+    .nastaveni button {
+        padding: 7px 5% 7px 5% !important;
+      }
 }
 
 
@@ -841,6 +878,12 @@ input:checked+.slider:before {
         .buttons {
             margin: 0 7px 0 7px !important;
         }
+        .location {
+            margin-left: 10px !important;
+        }
+        .location span {
+            margin-left: 7px !important;
+        }
     }
 
     .uploadimage , .uploadtext{
@@ -863,5 +906,18 @@ input:checked+.slider:before {
         margin: auto !important;
         float: unset !important;
     }
+
+    .prihlaseni,
+    .registrace {
+        width: calc(100% - 10%);
+        height: fit-content;
+        text-align: center;
+        margin: auto;
+        padding: 100px 5% 100px 5%;
+        background-color: var(--background);
+        box-shadow: none;
+        border-radius: 12px;
+    }
+
 
 }

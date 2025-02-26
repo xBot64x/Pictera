@@ -50,8 +50,10 @@ $showprivate = true;
 
 <?php
 if (isset($popis)){
+  echo '<section class="popis">';
   echo '<h1>Popis</h1>';
   echo '<p>' . htmlspecialchars($popis) . '</p>';
+  echo '</section>';
 }
 ?>
 

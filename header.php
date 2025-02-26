@@ -55,7 +55,7 @@ session_start();
                     echo '<div class="dropdown-content" id="headerDropdown">';
                     echo '<a class="mobile" href="nahrat.php">Nahrát</a>';
                     echo '<a class="mobile" href="feed.php">Pro tebe</a>';
-                    echo '<a class="mobile" href="nahrat.php">Nové</a>';
+                    echo '<a class="mobile" href="feed.php?Order=cas">Nové</a>';
                     echo '<a class="mobile" href="kontakt.php">Kontakt</a>';
                     echo '<a class="mobile" href="podporit.php">Podpořit</a><hr>';
                     echo '<a href="profil.php?ID=' . $_SESSION["uzivatelskejmeno"] . '">' . $_SESSION["uzivatelskejmeno"] . '</a>';
@@ -67,6 +67,17 @@ session_start();
                     echo '<a class="navbutton" href="nastaveni.php">Nastavení</a>';
                     echo '<a class="navbutton" href="registrace.php">registrace</a>';
                     echo '<a class="navbutton" href="prihlaseni.php" style="color: var(--accent1)">přihlásit se</a>';
+                    echo '<a class="navbutton mobile" href="prihlaseni.php" style="color: var(--accent1)">přihlásit se</a>';
+                    // generate code for echo svg dropdown menu
+
+                    echo '<div class="dropdown mobile">';
+                    echo '<a onclick="showHeaderDropdown()" class="navimage"><svg xmlns="http://www.w3.org/2000/svg" height="52px" viewBox="0 -960 960 960" width="52px" fill="#e3e3e3"><path d="M150-240q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h660q12.75 0 21.38 8.68 8.62 8.67 8.62 21.5 0 12.82-8.62 21.32-8.63 8.5-21.38 8.5H150Zm0-210q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h660q12.75 0 21.38 8.68 8.62 8.67 8.62 21.5 0 12.82-8.62 21.32-8.63 8.5-21.38 8.5H150Zm0-210q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h660q12.75 0 21.38 8.68 8.62 8.67 8.62 21.5 0 12.82-8.62 21.32-8.63 8.5-21.38 8.5H150Z"/></svg></a>';
+                    echo '<div class="dropdown-content" id="headerDropdown">';
+                    echo '<a href="nastaveni.php">Nastavení</a>';
+                    echo '<a href="registrace.php">registrace</a>';
+                    echo '<a href="prihlaseni.php">přihlásit se</a>';
+                    echo '</div>';
+                    echo '</>';
                 }
                 ?>
             </div>
