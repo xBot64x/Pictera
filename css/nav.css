@@ -135,6 +135,7 @@ a {
 
 footer {
     margin-top: 220px;
+    padding-bottom: 30px;
 }
 
 .footerLinks {
@@ -181,17 +182,6 @@ footer {
     a:hover{
         filter: brightness(0.5);
     }
-}
-
-.footer-squiggle{
-    color: var(--accent1);
-    fill: transparent;
-    stroke: currentColor;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    min-width: 1920px;
-    height: min-content;
 }
 
 /* sidebar */

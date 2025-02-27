@@ -868,6 +868,14 @@ input:checked+.slider:before {
         padding: 0 14px 0 14px !important;
     }
 
+    pre a {
+        color: var(--accent1) !important;
+    }
+
+    pre a:hover {
+        text-decoration: underline !important;
+    }
+
     .feed {
         .container {
             padding: 0;
@@ -918,6 +926,4 @@ input:checked+.slider:before {
         box-shadow: none;
         border-radius: 12px;
     }
-
-
 }

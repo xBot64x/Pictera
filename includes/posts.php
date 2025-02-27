@@ -17,15 +17,16 @@
           </div>
         </a>
         <div class="post">
-          <a href="post.php?p=<?= htmlspecialchars($post['ID_obrazky']) ?>">
+          
             <?php
             if (isset($post['nazev'])) {
+              echo '<a href="post.php?p=<?= htmlspecialchars($post[\'ID_obrazky\']) ?>">';
               echo '<img src="uploads/' . htmlspecialchars($post['ID_obrazky']) . '.webp" alt="' . htmlspecialchars($post['nazev']) . '">';
+              echo '</a>';
             } else {
-              echo "<pre>" . htmlspecialchars($post['popis']) . "</pre>";
+              echo "<pre>" . displayTextWithLinks($post['popis']) . "</pre>";
             };
             ?>
-          </a>
         </div>
         <div class="buttons">
           <a href="includes/likeScript.php?ID_obrazek=<?= htmlspecialchars($post['ID_obrazky']) ?>">
