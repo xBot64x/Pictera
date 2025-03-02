@@ -13,10 +13,10 @@
         </div>
         <div class="column">
             <a href="kontakt.php">Kontakt</a><br><br>
-            <a href="#">E-mail</a><br>
-            <a href="#">Twitter</a><br>
-            <a href="#">Instagram</a><br>
-            <a href="#">Discord</a><br>
+            <a href="mailto:Bot64@proton.me">E-mail</a><br>
+            <a href="www.x.com">X</a><br>
+            <a href="www.instagram.com">Instagram</a><br>
+            <a href="www.discord.com">Discord</a><br>
         </div>
         <div class="column">
             <a href="#">Moje další stránky</a><br><br>
@@ -32,5 +32,5 @@
 </footer>
 </body>
 
-<script src="js/script.js"></script>
+<script src="js/script.js?v=1"></script>
 </html>

@@ -492,6 +492,14 @@ input:checked+.slider:before {
         margin-bottom: 15px;
     }
 
+    pre a {
+        color: var(--accent1) !important;
+    }
+
+    pre a:hover {
+        text-decoration: underline !important;
+    }
+
     .buttons {
         display: flex;
         align-items: center;
@@ -572,7 +580,7 @@ input:checked+.slider:before {
     
     .dropdown-content {
         position: absolute;
-        transform: translate(-50px,0px);
+        transform: translate(calc(-100% + 37px),0px);
         background-color: var(--dropdown);
         padding: 13px 0px 13px 0px !important;
         display: none;
@@ -599,8 +607,8 @@ input:checked+.slider:before {
         font-weight: bold;
     }
     
-    .dropdown:hover .dropdown-content {
-        display: block;
+    .dropdown-content.show {
+        display: block !important; /* Add this line */
     }
 
     .dropdown div {
@@ -660,13 +668,6 @@ input:checked+.slider:before {
     }
     .active svg{
         color: var(--accent1);
-    }
-    .edit {
-        float: right;
-        color: var(--text2);
-    }
-    .edit:hover {
-        text-decoration: underline;
     }
     .profile-header{
         width: 100%;
@@ -777,6 +778,34 @@ input:checked+.slider:before {
     }
 }
 
+.kontakt {
+    width: 370px;
+    height: fit-content;
+    margin: auto;
+
+    h1 {
+        font-size: 26px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: var(--text);
+
+    }
+
+    p {
+        color: var(--text);
+        margin-bottom: 5px;
+    }
+
+    a {
+        color: var(--accent1);
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+}
+
 
 /* Responzibilita */
 
@@ -832,6 +861,11 @@ input:checked+.slider:before {
     .uploadtext {
         width: 490px !important;
     }
+
+    .profile-nav {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 @media only screen and (max-width: 798px) {
@@ -843,13 +877,14 @@ input:checked+.slider:before {
     }
 
     .nastaveni{
-        width: 90%;
+        width: 80%;
         padding: 50px 5% 100px 5%;
+        margin: auto;
     }
 
     .nastaveni-sidebar{
-        width: 100%;
-        padding: 50px 5% 0 5%;
+        width: 80%;
+        padding: 0 5% 0 5%;
     }
 
     .nastaveni button {
@@ -866,14 +901,6 @@ input:checked+.slider:before {
 
     pre {
         padding: 0 14px 0 14px !important;
-    }
-
-    pre a {
-        color: var(--accent1) !important;
-    }
-
-    pre a:hover {
-        text-decoration: underline !important;
     }
 
     .feed {
@@ -903,10 +930,26 @@ input:checked+.slider:before {
         border-radius: unset !important;
     }
 
-    .uploadimage .formular, .uploadtext .formular {
+    .upload {
+        width: 100% !important;
+        height: fit-content !important;
+        margin: none;
+        background-color: var(--background);
+        box-shadow: none !important;
+        border-radius: unset !important;
+        padding: 0;
+    }
+
+    .uploadimage .formular {
         float: unset !important;
         margin: auto;
-        padding: 50px 0 0 0;
+        padding: 47px 3px 0 3px;
+    }
+
+    .uploadtext .formular {
+        float: unset !important;
+        margin: auto;
+        padding: 0 3px 0 3px;
     }
 
     .image {

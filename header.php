@@ -14,10 +14,11 @@ session_start();
     <meta name="apple-mobile-web-app-title" content="Pictera" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/styles.css?v=2">
+    <link rel="stylesheet" href="css/nav.css?v=2">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/admin.css">
+    <script type="text/javascript" src="js/darkmode.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">

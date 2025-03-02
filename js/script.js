@@ -1,8 +1,19 @@
 // On page load
 document.addEventListener('DOMContentLoaded', (event) => {
-    if (localStorage.getItem('darkMode') === 'enabled') {
-        document.body.classList.add('dark-mode');
-    }
+    document.querySelectorAll('.dropdown > div').forEach(dropdownToggle => {
+        dropdownToggle.addEventListener('click', function(event) {
+            event.stopPropagation();
+            this.nextElementSibling.classList.toggle('show');
+        });
+    });
+
+    window.addEventListener('click', function(event) {
+        document.querySelectorAll('.dropdown-content').forEach(dropdownContent => {
+            if (dropdownContent.classList.contains('show')) {
+                dropdownContent.classList.remove('show');
+            }
+        });
+    });
 });
 
 function generatelink(element, text) {

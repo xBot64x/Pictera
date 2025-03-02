@@ -1,8 +1,8 @@
 <?php
 
 $servername = "localhost";
-$username = "knizef";
-$password = "FTp123";
+$username = "root";
+$password = "root";
 $dbname = "knizef_obrazky";
 
 /*

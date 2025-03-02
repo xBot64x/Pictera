@@ -14,17 +14,17 @@ if (isset($_POST["submit"])) {
   require_once 'functions.php';
 
   if (emptyInputUpload($nazev, $obrazek) !== false) {
-    header("location: ../upload.php?error=emptyinput");
+    header("location: ../nahratobrazek.php?error=emptyinput");
     exit();
   }
   if (invalidFileType($obrazek) !== false) {
-    header("location: ../upload.php?error=invalidfiletype");
+    header("location: ../nahratobrazek.php?error=invalidfiletype");
     exit();
   }
 
   uploadImage($conn, $nazev, $popis, $misto, $ID_autor, $obrazek, $privatni, $stahovatelne);
 
 } else {
-  header("location: ../upload.php");
+  header("location: ../nahratobrazek.php");
   exit();
 }

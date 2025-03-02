@@ -17,10 +17,9 @@
           </div>
         </a>
         <div class="post">
-          
             <?php
             if (isset($post['nazev'])) {
-              echo '<a href="post.php?p=<?= htmlspecialchars($post[\'ID_obrazky\']) ?>">';
+              echo '<a href="post.php?p=' . htmlspecialchars($post['ID_obrazky']) . '">';
               echo '<img src="uploads/' . htmlspecialchars($post['ID_obrazky']) . '.webp" alt="' . htmlspecialchars($post['nazev']) . '">';
               echo '</a>';
             } else {

@@ -14,7 +14,7 @@ function emptyInputSignup($email, $uzivatelskejmeno, $heslo, $heslo_opakovani)
 function invalidUsername($uzivatelskejmeno)
 {
     $result = false;
-    if (!preg_match("/^[a-zA-Z0-9]*$/", $uzivatelskejmeno)) {
+    if (!preg_match("/^[a-zA-Z0-9 _-]*$/", $uzivatelskejmeno)) {
         $result = true;
     }
     return $result;
@@ -182,9 +182,29 @@ function uploadImage($conn, $nazev, $popis, $misto, $ID_autor, $obrazek, $privat
             throw new Exception("Image upload failed");
         }
 
+        // write php code to change the resolution to maximum width of 400px or height of 711px
+        $image = imagecreatefromwebp($target_file);
+        $width = imagesx($image);
+        $height = imagesy($image);
+
+        if ($width > 400 || $height > 712) {
+            $newWidth = 400;
+            $newHeight = 712;
+            if ($width > $height) {
+                $newHeight = $height * 400 / $width;
+            } else {
+                $newWidth = $width * 712 / $height;
+            }
+
+            $newImage = imagecreatetruecolor($newWidth, $newHeight);
+            imagecopyresampled($newImage, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+            imagewebp($newImage, $target_file, 100);
+            imagedestroy($newImage);
+        }
+
         mysqli_commit($conn);
 
-        header("location: ../nahrat.php?error=none");
+        header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"]);
         exit();
     } catch (Exception $e) {
         mysqli_rollback($conn);
@@ -202,20 +222,31 @@ function uploadText($conn, $text, $misto, $privatni, $ID_autor)
 {
     mysqli_begin_transaction($conn);
 
-    $sql = "INSERT INTO obrazky (popis, misto, privatni, ID_autor) VALUES (?, ?, ?, ?);";
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        throw new Exception("Statement preparation failed");
+    try {
+        $sql = "INSERT INTO obrazky (popis, misto, privatni, ID_autor) VALUES (?, ?, ?, ?);";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            throw new Exception("Statement preparation failed");
+        }
+
+        mysqli_stmt_bind_param($stmt, "ssss", $text, $misto, $privatni, $ID_autor);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        mysqli_commit($conn);
+
+        header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"]);
+        exit();
+    } catch (Exception $e) {
+        mysqli_rollback($conn);
+
+        if (isset($target_file) && file_exists($target_file)) {
+            unlink($target_file);
+        }
+
+        header("location: ../nahrat.php?error=" . urlencode($e->getMessage()));
+        exit();
     }
-
-    mysqli_stmt_bind_param($stmt, "ssss", $text, $misto, $privatni, $ID_autor);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
-
-    mysqli_commit($conn);
-
-    header("location: ../nahrat.php?error=none");
-    exit();
 }
 
 function convertImageToWebp(string $inputFile, string $outputFile, int $quality = 100): bool
@@ -284,7 +315,8 @@ function setprofilepicture($conn, $obrazek, $ID_uzivatel)
     exit();
 }
 
-function removeprofilepicture($conn, $ID_uzivatel){
+function removeprofilepicture($conn, $ID_uzivatel)
+{
     session_start();
 
     $sql = "UPDATE uzivatele SET profilovyobrazek = default WHERE ID_uzivatel = ?;";
@@ -300,14 +332,15 @@ function removeprofilepicture($conn, $ID_uzivatel){
 
     $_SESSION["profilovyobrazek"] = "default";
 
-    if(file_exists('../profiles/' . $ID_uzivatel . '.webp')) {
+    if (file_exists('../profiles/' . $ID_uzivatel . '.webp')) {
         unlink('../profiles/' . $ID_uzivatel . '.webp');
     }
     header("location: ../nastaveni.php?error=none");
     exit();
 }
 
-function deleteaccount($conn, $ID_uzivatel, $admin){
+function deleteaccount($conn, $ID_uzivatel, $admin)
+{
     // smazat uzivatele z databaze
     $sql = "DELETE FROM uzivatele WHERE ID_uzivatel = ?;";
     $stmt = mysqli_stmt_init($conn);
@@ -364,14 +397,14 @@ function deleteaccount($conn, $ID_uzivatel, $admin){
         session_destroy();
         header("location: ../index.php");
         exit();
-    }
-    else{
+    } else {
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit();
     }
 }
 
-function changeusername($conn, $ID_uzivatel, $novejmeno){
+function changeusername($conn, $ID_uzivatel, $novejmeno)
+{
     $jmenoExistuje = usernameExists($conn, $novejmeno, $novejmeno);
 
     if ($jmenoExistuje === true) {
@@ -396,7 +429,8 @@ function changeusername($conn, $ID_uzivatel, $novejmeno){
     exit();
 }
 
-function changeemail($conn, $ID_uzivatel, $email){
+function changeemail($conn, $ID_uzivatel, $email)
+{
     $sql = "UPDATE uzivatele SET email = ? WHERE ID_uzivatel = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -412,7 +446,8 @@ function changeemail($conn, $ID_uzivatel, $email){
     exit();
 }
 
-function changepassword($conn, $ID_uzivatel, $heslo, $stareheslo){ // pokud je stare heslo spravne nastavi se nove heslo
+function changepassword($conn, $ID_uzivatel, $heslo, $stareheslo)
+{ // pokud je stare heslo spravne nastavi se nove heslo
     $sql = "SELECT heslo FROM uzivatele WHERE ID_uzivatel = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -452,7 +487,8 @@ function changepassword($conn, $ID_uzivatel, $heslo, $stareheslo){ // pokud je s
     }
 }
 
-function changepasswordadmin($conn, $ID_uzivatel, $heslo){
+function changepasswordadmin($conn, $ID_uzivatel, $heslo)
+{
     $sql = "UPDATE uzivatele SET heslo = ? WHERE ID_uzivatel = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -470,7 +506,8 @@ function changepasswordadmin($conn, $ID_uzivatel, $heslo){
     exit();
 }
 
-function checkskrytliky($conn, $ID_uzivatel){
+function checkskrytliky($conn, $ID_uzivatel)
+{
     $sql = "SELECT skryt_liky FROM uzivatele WHERE ID_uzivatel = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -489,7 +526,8 @@ function checkskrytliky($conn, $ID_uzivatel){
     return "";
 }
 
-function hideLikes($conn, $ID_uzivatel, $privatni){
+function hideLikes($conn, $ID_uzivatel, $privatni)
+{
     $sql = "UPDATE uzivatele SET skryt_liky = ? WHERE ID_uzivatel = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -509,56 +547,56 @@ function hideLikes($conn, $ID_uzivatel, $privatni){
 
 function convertTime($time)
 {
-  $timeZone = new DateTimeZone('Europe/Prague');
-  $time1 = new DateTime($time, $timeZone);
-  $now = new DateTime('now', $timeZone);
-  $interval = $time1->diff($now, true);
+    $timeZone = new DateTimeZone('Europe/Prague');
+    $time1 = new DateTime($time, $timeZone);
+    $now = new DateTime('now', $timeZone);
+    $interval = $time1->diff($now, true);
 
-  if ($interval->y) {
-    return 'před ' . $interval->y . ' ' . zkolonovani($interval->y, 'rokem', 'roky', 'let');
-  } elseif ($interval->m) {
-    return 'před ' . $interval->m . ' ' . zkolonovani($interval->m, 'měsícem', 'měsíci', 'měsíci');
-  } elseif ($interval->d) {
-    return 'před ' . $interval->d . ' ' . zkolonovani($interval->d, 'dnem', 'dny', 'dny');
-  } elseif ($interval->h) {
-    return 'před ' . $interval->h . ' ' . zkolonovani($interval->h, 'hodinou', 'hodinami', 'hodinami');
-  } elseif ($interval->i) {
-    return 'před ' . $interval->i . ' ' . zkolonovani($interval->i, 'minutou', 'minutami', 'minutami');
-  } else {
-    return "před méně než minutou";
-  }
+    if ($interval->y) {
+        return 'před ' . $interval->y . ' ' . zkolonovani($interval->y, 'rokem', 'roky', 'let');
+    } elseif ($interval->m) {
+        return 'před ' . $interval->m . ' ' . zkolonovani($interval->m, 'měsícem', 'měsíci', 'měsíci');
+    } elseif ($interval->d) {
+        return 'před ' . $interval->d . ' ' . zkolonovani($interval->d, 'dnem', 'dny', 'dny');
+    } elseif ($interval->h) {
+        return 'před ' . $interval->h . ' ' . zkolonovani($interval->h, 'hodinou', 'hodinami', 'hodinami');
+    } elseif ($interval->i) {
+        return 'před ' . $interval->i . ' ' . zkolonovani($interval->i, 'minutou', 'minutami', 'minutami');
+    } else {
+        return "před méně než minutou";
+    }
 }
 
 function zkolonovani($number, $form1, $form2, $form5)
 {
-  if ($number == 1) {
-    return $form1;
-  } elseif ($number >= 2 && $number <= 4) {
-    return $form2;
-  } else {
-    return $form5;
-  }
+    if ($number == 1) {
+        return $form1;
+    } elseif ($number >= 2 && $number <= 4) {
+        return $form2;
+    } else {
+        return $form5;
+    }
 }
 
-function removePost($conn, $ID_obrazky, $ID_autor){
-    if(isset($_SESSION["admin"])){
+function removePost($conn, $ID_obrazky, $ID_autor)
+{
+    if (isset($_SESSION["admin"])) {
         $sql = "DELETE FROM obrazky WHERE ID_obrazky = ?;";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             header("location: ../feed.php?error=stmtfailed");
             exit();
         }
-    
+
         mysqli_stmt_bind_param($stmt, "s", $ID_obrazky);
-    }
-    else{
+    } else {
         $sql = "DELETE FROM obrazky WHERE ID_obrazky = ? AND ID_autor = ?;";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             header("location: ../feed.php?error=stmtfailed");
             exit();
         }
-    
+
         mysqli_stmt_bind_param($stmt, "ss", $ID_obrazky, $ID_autor);
     }
     mysqli_stmt_execute($stmt);
@@ -630,13 +668,14 @@ function likePost($conn, $ID_obrazek, $ID_uzivatel)
 
     mysqli_stmt_bind_param($stmt, "ss", $ID_obrazek, $ID_obrazek);
     mysqli_stmt_execute($stmt);
-    
+
     mysqli_stmt_close($stmt);
 
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
 }
 
-function displayTextWithLinks($s) {
+function displayTextWithLinks($s)
+{
     return preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1">$1</a>', $s);
-  }
+}

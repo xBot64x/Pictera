@@ -1,5 +1,12 @@
 <?php include_once 'header.php' ?>
 
+<?php 
+if (isset($_SESSION['ID_uzivatel'])) {
+    header('Location: feed.php');
+    exit();
+}
+?>
+
 <section class="feed">
     <div class="container">
         <a href="#">

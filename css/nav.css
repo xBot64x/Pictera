@@ -282,9 +282,8 @@ footer {
         display: block !important;
     }
 
-    hr{
-        border: solid var(--boxblur) 1px;
-        filter: blur(3px);
+    .header hr{
+        border: 1px solid var(--border);
     }
 }
 

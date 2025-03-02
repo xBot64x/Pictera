@@ -10,7 +10,7 @@ if (!isset($_SESSION["ID_uzivatel"])) {
 <section class="uploadimage">
   <form action="includes/uploadScript.php" method="POST" enctype="multipart/form-data">
     <div class="image">
-      <input accept="image/png, image/jpeg, image/jpg, image/webp" type='file' id="imgInp" name='obrazek'>
+      <input accept="image/png, image/jpeg, image/jpg, image/webp, image/gif" type='file' id="imgInp" name='obrazek'>
       <label for="imgInp" class="custom-file-upload">
         Nahrát obrázek
       </label>

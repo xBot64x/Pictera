@@ -8,7 +8,7 @@
         <a href="podporit.php">Podpořit</a>
     </div>
 </nav>
-<script src="js/script.js"></script>
+<script src="js/script.js?v=1"></script>
 
 <script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
