@@ -10,7 +10,6 @@
 
     table th,
     table td {
-        border: 1px solid var(--text2);
         vertical-align: middle;
         text-align: left;
         padding: 7px;
@@ -30,8 +29,14 @@
         background-color: var(--tableeven);
     }
 
+    /* td left border except first td */
+    table tr td:not(:first-child) {
+        border-left: 1px solid var(--border);
+    }
+
     table tr {
         background-color: var(--tableodd);
+        border-left: none !important;
     }
 
     table tr:hover {

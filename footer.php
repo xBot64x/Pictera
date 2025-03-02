@@ -14,9 +14,9 @@
         <div class="column">
             <a href="kontakt.php">Kontakt</a><br><br>
             <a href="mailto:Bot64@proton.me">E-mail</a><br>
-            <a href="www.x.com">X</a><br>
-            <a href="www.instagram.com">Instagram</a><br>
-            <a href="www.discord.com">Discord</a><br>
+            <a href="https://www.x.com">X</a><br>
+            <a href="https://www.instagram.com">Instagram</a><br>
+            <a href="https://www.discord.com">Discord</a><br>
         </div>
         <div class="column">
             <a href="#">Moje další stránky</a><br><br>
