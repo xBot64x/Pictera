@@ -3,6 +3,11 @@ include_once 'header.php';
 include_once 'sidebar.php';
 include_once 'includes/database.php';
 
+if (!isset($_SESSION["ID_uzivatel"])) {
+    header("location: ./index.php");
+    exit();
+}
+
 // Check if ID parameter is set
 if (isset($_GET["ID"])) {
     $userID = $_GET["ID"];
@@ -84,14 +89,9 @@ else {
 </section>
 
 <?php
-if (!isset($_SESSION["ID_uzivatel"])) {
-    header("location: ./index.php");
-    exit();
-}
-
 if ($ID_uzivatel !== null) {
     if($tab == "oblibene" && $skryt_liky != 1){
-        $sql = "SELECT o.ID_obrazky, o.ID_autor, o.nazev, o.cas, o.popis, o.oblibene, o.privatni, o.stahovatelne, u.uzivatelskejmeno, u.misto, u.profilovyobrazek, 
+        $sql = "SELECT o.ID_obrazky, o.ID_autor, o.nazev, o.cas, o.popis, o.oblibene, o.privatni, o.stahovatelne, u.uzivatelskejmeno, o.odkaz, o.misto, u.profilovyobrazek, 
                 (SELECT COUNT(*) FROM oblibene WHERE ID_obrazek = o.ID_obrazky AND ID_uzivatel = ?) AS liked
                 FROM obrazky o
                 INNER JOIN uzivatele u ON o.ID_autor = u.ID_uzivatel
@@ -100,7 +100,7 @@ if ($ID_uzivatel !== null) {
                 ORDER BY o.cas DESC";
     }
     else if($tab == "privatni" && $ID_uzivatel == $_SESSION["ID_uzivatel"]){
-        $sql = "SELECT o.ID_obrazky, o.ID_autor, o.nazev, o.cas, o.popis, o.oblibene, o.privatni, o.stahovatelne, u.uzivatelskejmeno, u.misto, u.profilovyobrazek, 
+        $sql = "SELECT o.ID_obrazky, o.ID_autor, o.nazev, o.cas, o.popis, o.oblibene, o.privatni, o.stahovatelne, u.uzivatelskejmeno, o.odkaz, o.misto, u.profilovyobrazek, 
                 (SELECT COUNT(*) FROM oblibene WHERE ID_obrazek = o.ID_obrazky AND ID_uzivatel = ?) AS liked
                 FROM obrazky o
                 INNER JOIN uzivatele u ON o.ID_autor = u.ID_uzivatel
@@ -109,7 +109,7 @@ if ($ID_uzivatel !== null) {
         $showprivate = true;
     }
     else{
-        $sql = "SELECT o.ID_obrazky, o.ID_autor, o.nazev, o.cas, o.popis, o.oblibene, o.privatni, o.stahovatelne, u.uzivatelskejmeno, u.misto, u.profilovyobrazek, 
+        $sql = "SELECT o.ID_obrazky, o.ID_autor, o.nazev, o.cas, o.popis, o.oblibene, o.privatni, o.stahovatelne, u.uzivatelskejmeno, o.odkaz, o.misto, u.profilovyobrazek, 
                 (SELECT COUNT(*) FROM oblibene WHERE ID_obrazek = o.ID_obrazky AND ID_uzivatel = ?) AS liked
                 FROM obrazky o
                 INNER JOIN uzivatele u ON o.ID_autor = u.ID_uzivatel

@@ -11,7 +11,7 @@ if (isset($_POST["submit"])) {
   require_once 'functions.php';
 
   if (emptyInputUploadText($text) !== false) {
-    header("location: ../uploadtext.php?error=emptyinput");
+    header("location: ../nahrattext.php?error=emptyinput");
     exit();
   }
 

@@ -7,12 +7,13 @@ session_start();
 
 <head>
     <title>Pictera - přidejde se</title>
-    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="./favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./favicon/favicon.ico" />
+    <link rel="shortcut icon" href="./favicon/favicon.ico" />
+    <link rel="mask-icon" href="./favicon/favicon.ico" color="#000000">
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Pictera" />
-    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="manifest" href="./favicon/site.webmanifest" />
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/styles.css?v=2">
     <link rel="stylesheet" href="css/nav.css?v=2">

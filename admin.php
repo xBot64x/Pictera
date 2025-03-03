@@ -23,7 +23,7 @@ include_once 'sidebar.php';
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
                 echo "<td>" . $row["ID_uzivatel"] . "</td>";
-                echo "<td><a href='profil.php?ID=". $row["uzivatelskejmeno"] ." '>" . $row["uzivatelskejmeno"] . "</a></td>";
+                echo "<td><a href='profil.php?ID=" . $row["uzivatelskejmeno"] . " '>" . $row["uzivatelskejmeno"] . "</a></td>";
                 echo "<td>" . $row["email"] . "</td>";
                 echo "<td>" . ($row["skryt_liky"] ? "Ano" : "Ne") . "</td>";
                 echo "<td><img src='profiles/" . $row["profilovyobrazek"] . ".webp' alt='" . $row["uzivatelskejmeno"] . "' style='width: 50px; height: auto;'></td>";
@@ -57,7 +57,13 @@ include_once 'sidebar.php';
                 echo "<td>" . $row["popis"] . "</td>";
                 echo "<td>" . $row["uzivatelskejmeno"] . "</td>";
                 echo "<td>" . ($row["privatni"] ? "Ano" : "Ne") . "</td>";
-                echo "<td><img src='uploads/" . $row["ID_obrazky"] . ".webp' alt='" . $row["nazev"] . "' style='width: 50px; height: auto;'></td>";
+                if (file_exists("uploads/" . $row["ID_obrazky"] . ".webp")) {
+                    echo "<td><img src='uploads/" . $row["ID_obrazky"] . ".webp' style='width: 50px; height: auto;'></td>";
+                } elseif (!empty($row["odkaz"])) {
+                    echo "<td><a href='" . $row["odkaz"] . "' style='width: 50px; height: auto;'>video</td>";
+                } else {
+                    echo "<td></td>";
+                }
                 echo "<td style='width:30px'><form action='includes/removeScript.php' method='GET'>
             <input type='hidden' name='ID' value='" . $row["ID_obrazky"] . "'>
             <button type='submit'>Smazat</button>

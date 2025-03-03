@@ -146,6 +146,15 @@ function emptyInputUploadText($nazev)
     return $result;
 }
 
+function emptyinputUploadVideo($odkaz, $nazev)
+{
+    $result = false;
+    if (empty($odkaz) || empty($nazev)) {
+        $result = true;
+    }
+    return $result;
+}
+
 function invalidFileType($obrazek)
 {
     $result = false;
@@ -182,25 +191,45 @@ function uploadImage($conn, $nazev, $popis, $misto, $ID_autor, $obrazek, $privat
             throw new Exception("Image upload failed");
         }
 
-        // write php code to change the resolution to maximum width of 400px or height of 711px
+        // otočení
         $image = imagecreatefromwebp($target_file);
+        $exif = exif_read_data($obrazek["tmp_name"]);
+        if (isset($exif['Orientation'])) {
+            switch ($exif['Orientation']) {
+                case 3:
+                    $image = imagerotate($image, 180, 0);
+                    break;
+                case 6:
+                    $image = imagerotate($image, -90, 0);
+                    break;
+                case 8:
+                    $image = imagerotate($image, 90, 0);
+                    break;
+            }
+        }
+
+        // max velikost
         $width = imagesx($image);
         $height = imagesy($image);
 
-        if ($width > 400 || $height > 712) {
-            $newWidth = 400;
-            $newHeight = 712;
+        if ($width > 800 || $height > 1424) {
+            $newWidth = 800;
+            $newHeight = 1424;
             if ($width > $height) {
-                $newHeight = $height * 400 / $width;
+                $newHeight = $height * 800 / $width;
             } else {
-                $newWidth = $width * 712 / $height;
+                $newWidth = $width * 1424 / $height;
             }
 
             $newImage = imagecreatetruecolor($newWidth, $newHeight);
             imagecopyresampled($newImage, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
             imagewebp($newImage, $target_file, 100);
             imagedestroy($newImage);
+        } else {
+            imagewebp($image, $target_file, 100);
         }
+
+        imagedestroy($image);
 
         mysqli_commit($conn);
 
@@ -220,33 +249,41 @@ function uploadImage($conn, $nazev, $popis, $misto, $ID_autor, $obrazek, $privat
 
 function uploadText($conn, $text, $misto, $privatni, $ID_autor)
 {
-    mysqli_begin_transaction($conn);
+    $sql = "INSERT INTO obrazky (popis, misto, privatni, ID_autor) VALUES (?, ?, ?, ?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        throw new Exception("Statement preparation failed");
+    }
 
-    try {
-        $sql = "INSERT INTO obrazky (popis, misto, privatni, ID_autor) VALUES (?, ?, ?, ?);";
-        $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) {
-            throw new Exception("Statement preparation failed");
-        }
+    mysqli_stmt_bind_param($stmt, "ssss", $text, $misto, $privatni, $ID_autor);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 
-        mysqli_stmt_bind_param($stmt, "ssss", $text, $misto, $privatni, $ID_autor);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
+    mysqli_commit($conn);
 
-        mysqli_commit($conn);
+    header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"]);
+    exit();
+}
 
-        header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"]);
-        exit();
-    } catch (Exception $e) {
-        mysqli_rollback($conn);
+function uploadVideo($conn, $odkaz, $nazev, $misto, $privatni, $ID_autor)
+{
+    // fix youtu.be share links to normal links eg: https://youtu.be/F7041I-6sRw?si=EkXaxblhZG5uiswE to https://www.youtube.com/watch?v=F7041I-6sRw and remove ?si=EkXaxblhZG5uiswE, add embed/ to the link
+    $odkaz = preg_replace('/youtu\.be\/([a-zA-Z0-9_-]+)(\?.*)?/', 'www.youtube.com/watch?v=$1', $odkaz);
+    $odkaz = preg_replace('/watch\?v=([a-zA-Z0-9_-]+)(\?.*)?/', 'embed/$1', $odkaz);
 
-        if (isset($target_file) && file_exists($target_file)) {
-            unlink($target_file);
-        }
-
-        header("location: ../nahrat.php?error=" . urlencode($e->getMessage()));
+    $sql = "INSERT INTO obrazky (odkaz, nazev, misto, privatni, ID_autor) VALUES (?, ?, ?, ?, ?);";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../nahratvideo.php?error=stmtfailed");
         exit();
     }
+
+    mysqli_stmt_bind_param($stmt, "sssss", $odkaz, $nazev, $misto, $privatni, $ID_autor);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"]);
+    exit();
 }
 
 function convertImageToWebp(string $inputFile, string $outputFile, int $quality = 100): bool

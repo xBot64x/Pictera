@@ -310,12 +310,17 @@ input:checked+.slider:before {
         display: inline-flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
         width: 175px;
-        height: 175px;
+        height: 205px;
         margin: 40px;
         background-color: var(--background);
         box-shadow: 0 0px 10px var(--boxblur);
         border-radius: 12px;
+    }
+    a p{
+        margin-bottom: 10px;
+        height: 20px;
     }
     a:hover{
         background-color: var(--accent2);
@@ -471,6 +476,11 @@ input:checked+.slider:before {
         margin-right: 12px;
     }
 
+    iframe {
+        width: 100%;
+        height: 294px;
+    }
+
     .top a {
         display: inline-block;
         font-size: 14px;
@@ -548,17 +558,16 @@ input:checked+.slider:before {
 
     .bot {
         line-height: 1.4;
+        margin-left: 7px;
     }
 
     .bot span {
-        margin-left: 7px;
         margin-bottom: 7px;
         font-size: 16px;
         color: var(--text);
     }
 
     .bot a {
-        margin-left: 7px;
         font-size: 16px;
         color: var(--text2);
         text-decoration: none;
@@ -907,17 +916,8 @@ input:checked+.slider:before {
         .container {
             padding: 0;
         }
-        .bot span {
-            margin-left: 14px !important;
-        }
         .buttons {
             margin: 0 7px 0 7px !important;
-        }
-        .location {
-            margin-left: 10px !important;
-        }
-        .location span {
-            margin-left: 7px !important;
         }
     }
 
