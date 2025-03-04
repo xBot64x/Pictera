@@ -474,6 +474,8 @@ input:checked+.slider:before {
         height: 37px;
         border-radius: 9999px;
         margin-right: 12px;
+        object-fit: cover;
+        object-position: center;
     }
 
     iframe {

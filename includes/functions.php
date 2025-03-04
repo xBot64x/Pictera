@@ -197,8 +197,12 @@ function uploadImage($conn, $nazev, $popis, $misto, $ID_autor, $obrazek, $privat
         limitsize($image, $target_file, 800, 1424);
 
         mysqli_commit($conn);
-
-        header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"]);
+        
+        if ($privatni) {
+            header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"] . "&TAB=privatni");
+        } else {
+            header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"]);
+        }
         exit();
     } catch (Exception $e) {
         mysqli_rollback($conn);
@@ -269,7 +273,11 @@ function uploadText($conn, $text, $misto, $privatni, $ID_autor)
 
     mysqli_commit($conn);
 
-    header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"]);
+    if ($privatni) {
+        header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"] . "&TAB=privatni");
+    } else {
+        header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"]);
+    }
     exit();
 }
 
@@ -290,7 +298,11 @@ function uploadVideo($conn, $odkaz, $nazev, $misto, $privatni, $ID_autor)
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"]);
+    if ($privatni) {
+        header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"] . "&TAB=privatni");
+    } else {
+        header("location: ../profil.php?ID=" . $_SESSION["uzivatelskejmeno"]);
+    }
     exit();
 }
 
@@ -347,16 +359,18 @@ function setprofilepicture($conn, $obrazek, $ID_uzivatel)
 
     $_SESSION["profilovyobrazek"] = $ID_uzivatel;
 
+    $target_file = '../profiles/' . $ID_uzivatel . '.webp';
+
     try {
-        $target_file = '../profiles/' . $ID_uzivatel . '.webp';
         if (!convertImageToWebp($obrazek["tmp_name"], $target_file)) {
             throw new Exception("Image upload failed");
         }
         $image = fixrotation($obrazek, $target_file);
         limitsize($image, $target_file, 256, 256);
-    } catch (Exception) {
+    } catch (Exception $e) {
         mysqli_rollback($conn);
         header("location: ../nastaveni.php?error=uploadfailed");
+        $_SESSION["profilovyobrazek"] = "default";
         exit();
     }
     header("location: ../nastaveni.php?error=none");

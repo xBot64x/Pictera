@@ -12,7 +12,7 @@ a {
     padding: 25px 13% 20px 13%;
     left: 0px;
     top: 0px;
-    background-image: linear-gradient(var(--background), var(--background), transparent);
+    background-image: linear-gradient(var(--background), var(--background), transparent, transparent);
     z-index: 1000;
     pointer-events: none;
 
@@ -40,6 +40,8 @@ a {
         border-radius: 25%;
         display: block;
         pointer-events: none; 
+        object-fit: cover;
+        object-position: center;
     }
 
     .navimage svg {
@@ -136,6 +138,7 @@ a {
 footer {
     margin-top: 220px;
     padding-bottom: 30px;
+    border-bottom: var(--accent1) 5px solid;
 }
 
 .footerLinks {
