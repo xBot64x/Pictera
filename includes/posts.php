@@ -19,7 +19,7 @@
         <div class="post">
           <?php
           if (!empty($post['odkaz'])) {
-            echo '<iframe src="' . htmlspecialchars($post['odkaz']) . '"></iframe>';
+            echo '<iframe src="' . htmlspecialchars($post['odkaz']) . '" allowfullscreen></iframe>';
           } elseif (isset($post['nazev'])) {
             echo '<a href="post.php?p=' . htmlspecialchars($post['ID_obrazky']) . '">';
             echo '<img src="uploads/' . htmlspecialchars($post['ID_obrazky']) . '.webp" alt="' . htmlspecialchars($post['nazev']) . '">';

@@ -12,7 +12,7 @@ a {
     padding: 25px 13% 20px 13%;
     left: 0px;
     top: 0px;
-    background-image: linear-gradient(var(--background), var(--background), transparent, transparent);
+    background-image: linear-gradient(var(--background), var(--background), var(--background), transparent, transparent);
     z-index: 1000;
     pointer-events: none;
 
