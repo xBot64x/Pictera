@@ -29,7 +29,7 @@ include_once 'sidebar.php';
                 echo "<td><img src='profiles/" . $row["profilovyobrazek"] . ".webp' alt='" . $row["uzivatelskejmeno"] . "' style='width: 50px; height: auto;'></td>";
                 echo "<td style='width:30px'><form action='includes/changePasswordAdminScript.php' method='POST'>
             <input name='noveheslo' placeholder='heslo' required>
-
+            <input type='hidden' name='ID' value='" . $row["ID_uzivatel"] . "'>
             <button type='submit' name='submit'>Změnit heslo</button>
           </form></td>";
                 echo "<td style='width:30px'><form action='includes/deleteaccountScript.php' method='POST'>

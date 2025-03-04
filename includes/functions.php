@@ -192,44 +192,9 @@ function uploadImage($conn, $nazev, $popis, $misto, $ID_autor, $obrazek, $privat
         }
 
         // otočení
-        $image = imagecreatefromwebp($target_file);
-        $exif = exif_read_data($obrazek["tmp_name"]);
-        if (isset($exif['Orientation'])) {
-            switch ($exif['Orientation']) {
-                case 3:
-                    $image = imagerotate($image, 180, 0);
-                    break;
-                case 6:
-                    $image = imagerotate($image, -90, 0);
-                    break;
-                case 8:
-                    $image = imagerotate($image, 90, 0);
-                    break;
-            }
-        }
+        $image = fixrotation($obrazek, $target_file);
 
-        // max velikost
-        $width = imagesx($image);
-        $height = imagesy($image);
-
-        if ($width > 800 || $height > 1424) {
-            $newWidth = 800;
-            $newHeight = 1424;
-            if ($width > $height) {
-                $newHeight = $height * 800 / $width;
-            } else {
-                $newWidth = $width * 1424 / $height;
-            }
-
-            $newImage = imagecreatetruecolor($newWidth, $newHeight);
-            imagecopyresampled($newImage, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
-            imagewebp($newImage, $target_file, 100);
-            imagedestroy($newImage);
-        } else {
-            imagewebp($image, $target_file, 100);
-        }
-
-        imagedestroy($image);
+        limitsize($image, $target_file, 800, 1424);
 
         mysqli_commit($conn);
 
@@ -245,6 +210,49 @@ function uploadImage($conn, $nazev, $popis, $misto, $ID_autor, $obrazek, $privat
         header("location: ../nahrat.php?error=" . urlencode($e->getMessage()));
         exit();
     }
+}
+
+function fixrotation($obrazek, $target_file){ //return image
+    $image = imagecreatefromwebp($target_file);
+    $exif = exif_read_data($obrazek["tmp_name"]);
+    if (isset($exif['Orientation'])) {
+        switch ($exif['Orientation']) {
+            case 3:
+                $image = imagerotate($image, 180, 0);
+                break;
+            case 6:
+                $image = imagerotate($image, -90, 0);
+                break;
+            case 8:
+                $image = imagerotate($image, 90, 0);
+                break;
+        }
+    }
+    return $image;
+}
+
+function limitsize($image, $target_file ,$maxwidth, $maxheight){
+    $width = imagesx($image);
+    $height = imagesy($image);
+
+    if ($width > $maxwidth || $height > $maxheight) {
+        $newWidth = $maxwidth;
+        $newHeight = $maxheight;
+        if ($width > $height) {
+            $newHeight = $height * $maxwidth / $width;
+        } else {
+            $newWidth = $width * $maxheight / $height;
+        }
+
+        $newImage = imagecreatetruecolor($newWidth, $newHeight);
+        imagecopyresampled($newImage, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+        imagewebp($newImage, $target_file, 100);
+        imagedestroy($newImage);
+    } else {
+        imagewebp($image, $target_file, 100);
+    }
+
+    imagedestroy($image);
 }
 
 function uploadText($conn, $text, $misto, $privatni, $ID_autor)
@@ -326,8 +334,6 @@ function convertImageToWebp(string $inputFile, string $outputFile, int $quality 
 // nastaveni
 function setprofilepicture($conn, $obrazek, $ID_uzivatel)
 {
-    session_start();
-
     $sql = "UPDATE uzivatele SET profilovyobrazek = ? WHERE ID_uzivatel = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -342,7 +348,12 @@ function setprofilepicture($conn, $obrazek, $ID_uzivatel)
     $_SESSION["profilovyobrazek"] = $ID_uzivatel;
 
     try {
-        convertImageToWebp($obrazek["tmp_name"], '../profiles/' . $ID_uzivatel . '.webp');
+        $target_file = '../profiles/' . $ID_uzivatel . '.webp';
+        if (!convertImageToWebp($obrazek["tmp_name"], $target_file)) {
+            throw new Exception("Image upload failed");
+        }
+        $image = fixrotation($obrazek, $target_file);
+        limitsize($image, $target_file, 256, 256);
     } catch (Exception) {
         mysqli_rollback($conn);
         header("location: ../nastaveni.php?error=uploadfailed");
@@ -354,8 +365,6 @@ function setprofilepicture($conn, $obrazek, $ID_uzivatel)
 
 function removeprofilepicture($conn, $ID_uzivatel)
 {
-    session_start();
-
     $sql = "UPDATE uzivatele SET profilovyobrazek = default WHERE ID_uzivatel = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -484,7 +493,7 @@ function changeemail($conn, $ID_uzivatel, $email)
 }
 
 function changepassword($conn, $ID_uzivatel, $heslo, $stareheslo)
-{ // pokud je stare heslo spravne nastavi se nove heslo
+{
     $sql = "SELECT heslo FROM uzivatele WHERE ID_uzivatel = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {

@@ -14,7 +14,7 @@ if (!isset($_SESSION["ID_uzivatel"])) {
       <label for="imgInp" class="custom-file-upload">
         Nahrát obrázek
       </label>
-      <img id="preview">
+      <img src="images/empty.png" id="preview">
     </div>
     <div class="formular">
       <input type="text" name="nazev" placeholder="název *">
